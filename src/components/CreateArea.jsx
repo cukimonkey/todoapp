@@ -7,6 +7,8 @@ import AddIcon from '@mui/icons-material/Add';
 
 function CreateArea (props) {
 
+    const [isExpanded, setExpended] = useState(false);
+
     const [note, setNote] = useState({
         title: "",
         content: ""
@@ -33,10 +35,16 @@ function CreateArea (props) {
         });
         event.preventDefault();
     }
+
+    function expand(){
+        setExpended(true);
+    }
+
+
     return(
         <div>
             <form className="create-note">
-                <input 
+                {isExpanded && (<input 
                 type='text' 
                 name='title' 
                 onChange={handleChange}
@@ -44,9 +52,13 @@ function CreateArea (props) {
                 placeholder='Title' 
                 />
 
+                )}
+                
+
                 <textarea 
                 name='content'
-                rows='3'
+                rows={isExpanded ?3 : 1}
+                onClick={expand}
                 onChange={handleChange}
                 value={note.content}
                 placeholder='Take a note...'
